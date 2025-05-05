@@ -96,12 +96,9 @@ install_chart_testing() {
         CT_SIG=https://github.com/alisonlhart/chart-testing/releases/download/$version/chart-testing_${version#v}_linux_$arch.tar.gz.sig
 
         echo $CT_SIG 
-        echo $CT_CERT
+        echo $CT_CERT        
 
-        https://github.com/alisonlhart/chart-testing/releases/download/1.0.0/chart-testing_1.0.0_linux_amd64.tar.gz.pem
-        
-
-        curl --retry 5 --retry-delay 1 -sSLo ct.tar.gz "https://github.com/alisonlhart/chart-testing/releases/download/v$version/chart-testing_${version#v}_linux_$arch.tar.gz"
+        curl --retry 5 --retry-delay 1 -sSLo ct.tar.gz "https://github.com/alisonlhart/chart-testing/releases/download/$version/chart-testing_${version#v}_linux_$arch.tar.gz"
         cosign verify-blob --certificate $CT_CERT --signature $CT_SIG \
           --certificate-identity "https://github.com/alisonlhart/chart-testing/.github/workflows/release.yaml@refs/heads/main" \
           --certificate-oidc-issuer "https://token.actions.githubusercontent.com" ct.tar.gz
