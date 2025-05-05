@@ -94,6 +94,9 @@ install_chart_testing() {
         echo "Installing chart-testing v${version}..."
         CT_CERT=https://github.com/alisonlhart/chart-testing/releases/download/v$version/chart-testing_${version#v}_linux_$arch.tar.gz.pem
         CT_SIG=https://github.com/alisonlhart/chart-testing/releases/download/v$version/chart-testing_${version#v}_linux_$arch.tar.gz.sig
+
+        echo $CT_SIG 
+        echo $CT_CERT
         
 
         curl --retry 5 --retry-delay 1 -sSLo ct.tar.gz "https://github.com/alisonlhart/chart-testing/releases/download/v$version/chart-testing_${version#v}_linux_$arch.tar.gz"
@@ -105,6 +108,8 @@ install_chart_testing() {
         #   log_error "Unable to validate chart-testing version: v${version}"
         #   exit 1
         # fi
+
+        ls
 
         tar -xzf ct.tar.gz -C "${cache_dir}"
         rm -f ct.tar.gz
