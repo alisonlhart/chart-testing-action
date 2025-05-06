@@ -110,4 +110,6 @@ jobs:
 
     - name: Run chart-testing (install)
       if: steps.list-changed.outputs.changed == 'true'
-      run: ct install --chart-dirs=testdata --target-branch ${{ github.event.repository.default_branch }} --release-name=test
+      run: |
+        cd testdata/simple-deployment
+        ct install --charts . --target-branch ${{ github.event.repository.default_branch }} --release-name=test
